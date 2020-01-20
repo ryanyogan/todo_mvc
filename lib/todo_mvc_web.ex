@@ -23,6 +23,7 @@ defmodule TodoMVCWeb do
 
       import Plug.Conn
       import TodoMVCWeb.Gettext
+      import Phoenix.LiveView.Controller
       alias TodoMVCWeb.Router.Helpers, as: Routes
     end
   end
@@ -41,6 +42,7 @@ defmodule TodoMVCWeb do
 
       import TodoMVCWeb.ErrorHelpers
       import TodoMVCWeb.Gettext
+      import Phoenix.LiveView.Helpers
       alias TodoMVCWeb.Router.Helpers, as: Routes
     end
   end
@@ -50,6 +52,7 @@ defmodule TodoMVCWeb do
       use Phoenix.Router
       import Plug.Conn
       import Phoenix.Controller
+      import Phoenix.LiveView.Router
     end
   end
 
