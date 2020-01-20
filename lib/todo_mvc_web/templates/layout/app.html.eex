@@ -10,7 +10,6 @@
 		<footer class="info">
 			<p>Double-click to edit a todo</p>
 			<p>Created by <a href="http://github.com/ryanyogan">Ryan Yogan</a></p>
-			<p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
 		</footer>
     <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
 	</body>

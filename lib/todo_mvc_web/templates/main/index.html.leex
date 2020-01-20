@@ -1,7 +1,14 @@
 <section class="todoapp">
   <header class="header">
     <h1>todos</h1>
-    <input class="new-todo" placeholder="What needs to be done?" autofocus />
+    <form phx-submit="add-todo">
+      <input
+        name="text"
+        class="new-todo"
+        placeholder="What needs to be done?"
+        autofocus
+      />
+    </form>
   </header>
   <section class="main">
     <input id="toggle-all" class="toggle-all" type="checkbox" />
@@ -18,7 +25,11 @@
             <label>
               <%= todo.text %>
             </label>
-            <button class="destroy"></button>
+            <button
+              class="destroy"
+              phx-click="destroy"
+              phx-value-todo-id="<%= todo.id %>"
+            ></button>
           </div>
         <% end %>
       <% end %>
