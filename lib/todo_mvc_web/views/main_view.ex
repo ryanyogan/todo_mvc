@@ -8,4 +8,8 @@ defmodule TodoMVCWeb.MainView do
   def all_todos_completed?(todos) do
     Enum.any?(todos, fn t -> t.state != "active" end)
   end
+
+  def any_todos_completed?(todos) do
+    Enum.any?(todos, fn t -> t.state == "completed" end)
+  end
 end

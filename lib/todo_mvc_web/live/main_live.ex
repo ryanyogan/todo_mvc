@@ -8,7 +8,7 @@ defmodule TodoMVCWeb.MainLive do
   end
 
   def mount(_params, socket) do
-    {:ok, assign(socket, todos: [Todo.new("First Todo")])}
+    {:ok, assign(socket, todos: [])}
   end
 
   # We do not want to add a tdo if the text is empty
@@ -47,6 +47,12 @@ defmodule TodoMVCWeb.MainLive do
   def handle_event("toggle-all", _params, socket) do
     todos(socket)
     |> Enum.map(&Todo.activate/1)
+    |> handle_response(socket)
+  end
+
+  def handle_event("clear-completed", _params, socket) do
+    todos(socket)
+    |> Enum.reject(fn t -> t.state == "completed" end)
     |> handle_response(socket)
   end
 

@@ -49,19 +49,23 @@
       <% end %>
     </ul>
   </section>
-  <footer class="footer">
-    <span class="todo-count"></span>
-    <ul class="filters">
-      <li>
-        <a href="#/" class="selected">All</a>
-      </li>
-      <li>
-        <a href="#/active">Active</a>
-      </li>
-      <li>
-        <a href="#/completed">Completed</a>
-      </li>
-    </ul>
-    <button class="clear-completed">Clear completed</button>
-  </footer>
+  <%= if Enum.any?(@todos) do %>
+    <footer class="footer">
+      <span class="todo-count"></span>
+      <ul class="filters">
+        <li>
+          <a href="#/" class="selected">All</a>
+        </li>
+        <li>
+          <a href="#/active">Active</a>
+        </li>
+        <li>
+          <a href="#/completed">Completed</a>
+        </li>
+      </ul>
+      <%= if any_todos_completed?(@todos) do %>
+        <button class="clear-completed" phx-click="clear-completed">Clear completed</button>
+      <% end %>
+    </footer>
+  <% end %>
 </section>
