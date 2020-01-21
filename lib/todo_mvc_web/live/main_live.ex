@@ -56,6 +56,39 @@ defmodule TodoMVCWeb.MainLive do
     |> handle_response(socket)
   end
 
+  def handle_event("edit", %{"todo-id" => id}, socket) do
+    toggle_editing = fn
+      %Todo{id: ^id} = todo -> %{todo | editing: true}
+      todo -> todo
+    end
+
+    todos(socket)
+    |> Enum.map(toggle_editing)
+    |> handle_response(socket)
+  end
+
+  def handle_event("change", %{"title" => text}, socket) do
+    update_text = fn
+      %Todo{editing: true} = todo -> %{todo | text: text}
+      todo -> todo
+    end
+
+    todos(socket)
+    |> Enum.map(update_text)
+    |> handle_response(socket)
+  end
+
+  def handle_event("stop-editing", %{"todo-id" => id}, socket) do
+    toggle_editing = fn
+      %Todo{id: ^id} = todo -> %{todo | editing: false}
+      todo -> todo
+    end
+
+    todos(socket)
+    |> Enum.map(toggle_editing)
+    |> handle_response(socket)
+  end
+
   def handle_params(%{"filter" => filter}, _uri, socket) do
     {:noreply, assign(socket, filter: filter)}
   end
