@@ -17,17 +17,14 @@ defmodule TodoMVCWeb.MainLive do
   end
 
   def handle_event("add-todo", %{"text" => text}, socket) do
-    todos = socket.assigns[:todos] ++ [Todo.new(text)]
-
-    {:noreply, assign(socket, todos: todos)}
+    (todos(socket) ++ [Todo.new(text)])
+    |> handle_response(socket)
   end
 
   def handle_event("destroy", %{"todo-id" => id}, socket) do
-    todos =
-      socket.assigns[:todos]
-      |> Enum.reject(fn t -> t.id == id end)
-
-    {:noreply, assign(socket, todos: todos)}
+    todos(socket)
+    |> Enum.reject(fn t -> t.id == id end)
+    |> handle_response(socket)
   end
 
   def handle_event("toggle", %{"todo-id" => id}, socket) do
@@ -36,10 +33,28 @@ defmodule TodoMVCWeb.MainLive do
       todo -> todo
     end
 
-    todos =
-      socket.assigns[:todos]
-      |> Enum.map(toggle)
+    todos(socket)
+    |> Enum.map(toggle)
+    |> handle_response(socket)
+  end
 
+  def handle_event("toggle-all", %{"checked" => "false"}, socket) do
+    todos(socket)
+    |> Enum.map(&Todo.complete/1)
+    |> handle_response(socket)
+  end
+
+  def handle_event("toggle-all", _params, socket) do
+    todos(socket)
+    |> Enum.map(&Todo.activate/1)
+    |> handle_response(socket)
+  end
+
+  defp handle_response(todos, socket) do
     {:noreply, assign(socket, todos: todos)}
+  end
+
+  defp todos(socket) do
+    socket.assigns[:todos]
   end
 end
