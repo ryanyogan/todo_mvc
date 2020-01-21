@@ -60,7 +60,9 @@
   </section>
   <%= if Enum.any?(@todos) do %>
     <footer class="footer">
-      <span class="todo-count"></span>
+      <span class="todo-count">
+        <%= active_todos_count(@todos) %>
+      </span>
       <ul class="filters">
         <li>
           <%= live_link "All",

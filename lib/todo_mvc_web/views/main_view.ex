@@ -25,4 +25,12 @@ defmodule TodoMVCWeb.MainView do
   def todo_visible?(_todo, "all"), do: true
   def todo_visible?(%{state: state}, state), do: true
   def todo_visible?(_, _), do: false
+
+  def active_todos_count(todos) do
+    ngettext(
+      "1 item left",
+      "%{count} items left",
+      Enum.count(todos, fn t -> t.state == "active" end)
+    )
+  end
 end
