@@ -1,6 +1,5 @@
 defmodule TodoMVCWeb.MainView do
   use TodoMVCWeb, :view
-  alias TodoMVC.Todo
 
   def todo_classes(todo) do
     [
